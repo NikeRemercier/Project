@@ -13,15 +13,16 @@
 <!-- TOMBOL TAMBAH DATA -->
 <div class="pb-3">
     <a href='{{ url('barang/create') }}' class="btn btn-primary">+ Tambah Data</a>
-    @auth
-    <a class="btn btn-primary" href='{{ route('password') }}'>Ubah Password</a>    
-    <a class="btn btn-danger" href='{{ route('logout') }}'>Logout</a>    
-    @endauth
-    @guest
-    <a class="btn btn-primary" href='{{ route('login') }}'>Login</a>
-    <a class="btn btn-info" href='{{ route('register') }}'>Register</a>        
-    @endguest
-    
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            @auth
+                <a class="btn btn-primary me-md-2" href='{{ route('password') }}'>Ubah Password</a>    
+                <a class="btn btn-danger" href='{{ route('logout') }}'>Logout</a>    
+            @endauth
+            @guest
+                <a class="btn btn-primary" href='{{ route('login') }}'>Login</a>
+                <a class="btn btn-info" href='{{ route('register') }}'>Register</a>   
+            @endguest   
+        </div> 
 </div>
           
 <table class="table table-striped">
