@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class user extends Model
+class lokasi extends Model
 {
     use HasFactory;
-    protected $fillable = ['id_user', 'nama_user', 'id_level', 'username', 'password']; 
-    protected $table = 'user';
+    protected $fillable = ['id_lokasi', 'nama_lokasi', 'id_user', 'keterangan']; 
+    protected $table = 'lokasi';
     public $timestamps = false;
 }

@@ -1,17 +1,10 @@
 @extends('layout.main')
-<!-- START FORM -->
-@section('konten')
 
+@section('konten')
 <form action='{{ url('barang') }}' method='post'>
 @csrf
     <div class="my-3 p-3 bg-body rounded shadow-sm">
-        <a href="{{ url('barang') }}" class="btn btn-secondary"><< Kembali</a>
-        <div class="mb-3 row">
-            <label for="id_barang" class="col-sm-2 col-form-label">ID Barang</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" value='{{ Session::get('id_barang') }}' name='id_barang' id="id_barang">
-            </div>
-        </div>
+        <a href="{{ url('barang') }}" class="btn btn-secondary bi bi-back"> Kembali</a>
         <div class="mb-3 row">
             <label for="nama_barang" class="col-sm-2 col-form-label">Nama Barang</label>
             <div class="col-sm-10">
@@ -31,10 +24,9 @@
             </div>
         </div>
         <div class="mb-3 row">
-            <label for="jurusan" class="col-sm-2 col-form-label"></label>
-            <div class="col-sm-10"><button type="submit" class="btn btn-primary" name="submit">SIMPAN</button></div>
+            <label class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10"><button type="submit" class="btn btn-primary bi bi-save" name="submit"> Simpan</button></div>
         </div>
     </div>
 </form>
 @endsection
-<!-- AKHIR FORM -->

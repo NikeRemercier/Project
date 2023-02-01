@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\barang;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class barangController extends Controller
 {
@@ -16,17 +17,17 @@ class barangController extends Controller
     public function index(Request $request)
     {
         $katakunci = $request->katakunci;
-        $jumlahbaris = 10;
+        $db = DB::table('barang')->get();
+        $jumlahbaris = 5;
         if(strlen($katakunci)){
-            $data = barang::where('id_barang','like',"%$katakunci%")
-            ->orWhere('nama_barang','like',"%$katakunci%")
+            $data = barang::where('nama_barang','like',"%$katakunci%")
             ->orWhere('merk','like',"%$katakunci%")
             ->paginate($jumlahbaris);
 
         }else{
-            $data = barang::orderBy('nama_barang', 'desc')->paginate($jumlahbaris);
+            $data = barang::orderBy('id_barang', 'desc')->paginate($jumlahbaris);
         }
-        return view('barang.index')->with('data1', $data);
+        return view('barang.index', compact('db'))->with('barang', $data);
     }
 
     /**
@@ -47,31 +48,28 @@ class barangController extends Controller
      */
     public function store(Request $request)
     {
-        Session::flash('id_barang', $request->id_barang);
         Session::flash('nama_barang', $request->nama_barang);
         Session::flash('merk', $request->merk);
         Session::flash('total_barang', $request->total_barang);
         
         $request->validate([
-            'id_barang' => 'required|unique:barang,id_barang',
             'nama_barang' => 'required',
             'merk' => 'required',
-            'total_barang' => 'required'
+            'total_barang' => 'required',
         ],[
-            'id_barang.required' => 'ID Wajib di Isi',
-            'id_barang.unique' => 'ID Sudah di Isi',
             'nama_barang.required' => 'Nama Wajib di Isi',
             'merk.required' => 'Merk Wajib di Isi',
             'total_barang.required' => 'Jumlah Wajib di Isi', 
         ]);
-        $data = [
-            'id_barang'=>$request->id_barang,
-            'nama_barang'=>$request->nama_barang,
-            'merk'=>$request->merk,
-            'total_barang'=>$request->total_barang,
-        ];
-        barang::create($data);
-        return redirect()->to('barang')->with('success', 'Berhasil menambahkan data');
+            $Array = DB::select('SELECT new_id_barang() AS id_barang');
+            $kode_baru = $Array[0]->id_barang;
+            barang::insert([
+                'id_barang' => $kode_baru,
+                'nama_barang' => $request->input('nama_barang'),
+                'merk' => $request->input('merk'),
+                'total_barang' => $request->input('total_barang')
+            ]);
+            return redirect()->to('barang')->with('success', 'Berhasil menambahkan data');
     }
 
     /**
@@ -94,7 +92,7 @@ class barangController extends Controller
     public function edit($id)
     {
         $data = barang::where('id_barang', $id)->first();
-        return view('barang.edit')->with('data', $data);
+        return view('barang.edit')->with('edit_barang', $data);
     }
 
     /**

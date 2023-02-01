@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class user extends Model
+class level_user extends Model
 {
     use HasFactory;
-    protected $fillable = ['id_user', 'nama_user', 'id_level', 'username', 'password']; 
-    protected $table = 'user';
+    protected $fillable = ['id_level', 'nama_level']; 
+    protected $table = 'level_user';
     public $timestamps = false;
 }

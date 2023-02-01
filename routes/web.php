@@ -1,7 +1,11 @@
 <?php
 
 use App\Http\Controllers\barangController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\level_userController;
+use App\Http\Controllers\lokasiController;
+use App\Http\Controllers\sumber_danaController;
+use App\Http\Controllers\supplierController;
+use App\Http\Controllers\userController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,13 +21,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-})->name('home');
+});
 
 Route::resource('barang', barangController::class);
-
-Route::get('register', [UserController::class, 'register'])->name('register');
-Route::post('register', [UserController::class, 'register_action'])->name('register.action');
-Route::get('login', [UserController::class, 'login'])->name('login');
-Route::post('login', [UserController::class, 'login_action'])->name('login.action');
-Route::get('logout', [UserController::class, 'logout'])->name('logout');
-Route::post('logout', [UserController::class, 'logout_action'])->name('logout.action');
+Route::resource('supplier', supplierController::class);
+Route::resource('sumber_dana', sumber_danaController::class);
+Route::resource('level_user', level_userController::class);
+Route::resource('user', userController::class);
+Route::resource('lokasi', lokasiController::class);
