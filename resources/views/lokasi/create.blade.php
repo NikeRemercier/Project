@@ -8,7 +8,7 @@
         <div class="mb-3 row">
             <label for="nama_lokasi" class="col-sm-2 col-form-label">Nama Lokasi</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" value='{{ Session::get('nama_lokasi') }}' name='nama_lokasi' id="nama_lokasi">
+                <input type="text" class="form-control" value='{{ Session::get('nama_lokasi') }}' name='nama_lokasi' id="nama_lokasi" autofocus placeholder="Masukan Nama Lokasi">
             </div>
         </div>
         <div class="mb-3 row">
@@ -16,8 +16,8 @@
             <div class="col-sm-10">
                 <select class="form-select" aria-label="Default select example" name="id_user" id="id_user">
                     <option disabled selected>Pilih User</option>
-                        @foreach($create as $item)
-                            <option value="{{ $item->id_user }}">{{ $item->nama_user }}</option>
+                        @foreach($user as $item)
+                            <option value="{{ $item->id_user }}" {{old('id_user') == $item->id_user ? 'selected' : null}}>{{ $item->nama_user }}</option>
                         @endforeach
                 </select>
             </div>
@@ -25,7 +25,7 @@
         <div class="mb-3 row">
             <label for="keterangan" class="col-sm-2 col-form-label">Keterangan</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" value='{{ Session::get('keterangan') }}' name='keterangan' id="keterangan">
+                <input type="text" class="form-control" value='{{ Session::get('keterangan') }}' name='keterangan' id="keterangan" placeholder="Masukan Keterangan">
             </div>
         </div>
         <div class="mb-3 row">

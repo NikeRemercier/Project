@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class barang_masuk extends Model
+class view_join_pemeliharaan_barang extends Model
 {
     use HasFactory;
 }

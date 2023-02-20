@@ -8,19 +8,19 @@
         <div class="mb-3 row">
             <label for="nama_barang" class="col-sm-2 col-form-label">Nama Barang</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" value='{{ Session::get('nama_barang') }}' name='nama_barang' id="nama_barang">
+                <input type="text" class="form-control" value='{{ Session::get('nama_barang') }}' name='nama_barang' id="nama_barang" placeholder="Masukan Nama Barang" autofocus>
             </div>
         </div>
         <div class="mb-3 row">
             <label for="merk" class="col-sm-2 col-form-label">Merk</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" value='{{ Session::get('merk') }}' name='merk' id="merk">
+                <input type="text" class="form-control" value='{{ Session::get('merk') }}' name='merk' id="merk" placeholder="Masukan Merk Barang">
             </div>
         </div>
         <div class="mb-3 row">
             <label for="total_barang" class="col-sm-2 col-form-label">Total Barang</label>
             <div class="col-sm-10">
-                <input type="number" class="form-control" value='{{ Session::get('total_barang') }}' name='total barang' id="total barang">
+                <input type="number" class="form-control" value='{{ Session::get('total_barang') }}' name='total barang' id="total barang" placeholder="Masukan Total Barang">
             </div>
         </div>
         <div class="mb-3 row">

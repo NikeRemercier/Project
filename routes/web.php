@@ -1,11 +1,14 @@
 <?php
 
-use App\Http\Controllers\barangController;
+use App\Http\Controllers\BarangController;
+use App\Http\Controllers\BarangKeluarController;
+use App\Http\Controllers\DetailBarangController;
 use App\Http\Controllers\level_userController;
 use App\Http\Controllers\lokasiController;
-use App\Http\Controllers\sumber_danaController;
+use App\Http\Controllers\PeminjamanBarangController;
+use App\Http\Controllers\SumberDanaController;
 use App\Http\Controllers\supplierController;
-use App\Http\Controllers\userController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,9 +26,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('barang', barangController::class);
+Route::resource('barang', BarangController::class);
 Route::resource('supplier', supplierController::class);
-Route::resource('sumber_dana', sumber_danaController::class);
+Route::resource('sumber_dana', SumberDanaController::class);
 Route::resource('level_user', level_userController::class);
-Route::resource('user', userController::class);
+Route::resource('user', UserController::class);
 Route::resource('lokasi', lokasiController::class);
+Route::resource('detail_barang', DetailBarangController::class);
+Route::resource('barang_keluar', BarangKeluarController::class);
+Route::resource('peminjaman_barang', PeminjamanBarangController::class);

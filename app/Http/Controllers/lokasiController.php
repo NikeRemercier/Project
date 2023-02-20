@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\lokasi;
+use App\Models\view_join_lokasi;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class lokasiController extends Controller
+class LokasiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,20 +18,16 @@ class lokasiController extends Controller
     public function index(Request $request)
     {
         $katakunci = $request->katakunci;
-        $db = DB::table('lokasi')
-        ->join('user', 'user.id_user', '=', 'lokasi.id_user')
-        ->select('lokasi.*', 'user.*')
-        ->get();
         $jumlahbaris = 5;
         if(strlen($katakunci)){
-            $data = lokasi::where('nama_lokasi','like',"%$katakunci%")
-            ->orWhere('id_user','like',"%$katakunci%")
+            $data = view_join_lokasi::where('nama_lokasi','like',"%$katakunci%")
+            ->orWhere('nama_user','like',"%$katakunci%")
             ->orWhere('keterangan','like',"%$katakunci%")
             ->paginate($jumlahbaris);
         }else{
-            $data = lokasi::orderBy('id_lokasi', 'desc')->paginate($jumlahbaris);
+            $data = view_join_lokasi::orderBy('id_lokasi', 'desc')->paginate($jumlahbaris);
         }
-        return view('lokasi.index', compact('db'))->with('lokasi', $data);
+        return view('lokasi.index')->with('lokasi', $data);
     }
 
     /**
@@ -40,8 +37,8 @@ class lokasiController extends Controller
      */
     public function create()
     {
-        $create = DB::table('user')->get();
-        return view('lokasi.create', compact('create'));
+        $user = DB::table('user')->get();
+        return view('lokasi.create', compact('user'));
     }
 
     /**
@@ -53,7 +50,6 @@ class lokasiController extends Controller
     public function store(Request $request)
     {
         Session::flash('nama_lokasi', $request->nama_lokasi);
-        Session::flash('id_user', $request->id_user);
         Session::flash('keterangan', $request->keterangan);
         
         $request->validate([           

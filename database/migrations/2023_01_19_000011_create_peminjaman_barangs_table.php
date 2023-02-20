@@ -16,13 +16,19 @@ return new class extends Migration
         Schema::create('peminjaman_barang', function (Blueprint $table) {
             $table->char('id_peminjam', 8)->primary();
             $table->char('kode_barang', 8);
-            $table->integer('jumlah_pinjam');
-            $table->date('tanggal_pinjam');
+            $table->char('id_user', 8);
+            $table->date('tanggal_peminjaman');
             $table->date('tanggal_kembali');
 
             $table->foreign('kode_barang')
             ->references('kode_barang')
             ->on('detail_barang')
+            ->cascadeOnUpdate()
+            ->cascadeOnDelete();
+
+            $table->foreign('id_user')
+            ->references('id_user')
+            ->on('user')
             ->cascadeOnUpdate()
             ->cascadeOnDelete();
         });

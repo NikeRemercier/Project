@@ -19,7 +19,7 @@ return new class extends Migration
             $table->char('id_barang', 8);
             $table->char('id_sumber', 4);
             $table->string('kondisi', 25);
-            $table->string('foto_barang', 25);
+            $table->string('foto_barang');
             $table->date('tahun_pembelian');
 
             $table->foreign('id_lokasi')

@@ -16,14 +16,12 @@ return new class extends Migration
         Schema::create('barang_keluar', function (Blueprint $table) {
             $table->char('id_keluar', 8)->primary();
             $table->char('kode_barang', 8);
-            $table->integer('jumlah_keluar');
+            $table->char('id_lokasi', 4);
+            $table->char('id_barang', 8);
+            $table->char('id_sumber', 4);
+            $table->string('kondisi', 25);
+            $table->string('foto_barang');
             $table->date('tanggal_keluar');
-
-            $table->foreign('kode_barang')
-            ->references('kode_barang')
-            ->on('detail_barang')
-            ->cascadeOnUpdate()
-            ->cascadeOnDelete();
         });
     }
 

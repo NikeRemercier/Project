@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class barangController extends Controller
+class BarangController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,6 @@ class barangController extends Controller
     public function index(Request $request)
     {
         $katakunci = $request->katakunci;
-        $db = DB::table('barang')->get();
         $jumlahbaris = 5;
         if(strlen($katakunci)){
             $data = barang::where('nama_barang','like',"%$katakunci%")
@@ -27,7 +26,7 @@ class barangController extends Controller
         }else{
             $data = barang::orderBy('id_barang', 'desc')->paginate($jumlahbaris);
         }
-        return view('barang.index', compact('db'))->with('barang', $data);
+        return view('barang.index')->with('barang', $data);
     }
 
     /**

@@ -8,13 +8,13 @@
         <div class="mb-3 row">
             <label for="nama_sumber" class="col-sm-2 col-form-label">Nama Sumber</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" value='{{ Session::get('nama_sumber') }}' name='nama_sumber' id="nama_sumber">
+                <input type="text" class="form-control" value='{{ Session::get('nama_sumber') }}' name='nama_sumber' id="nama_sumber" autofocus placeholder="Masukan Nama Sumber">
             </div>
         </div>
         <div class="mb-3 row">
             <label for="keterangan" class="col-sm-2 col-form-label">Keterangan</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" value='{{ Session::get('keterangan') }}' name='keterangan' id="keterangan">
+                <input type="text" class="form-control" value='{{ Session::get('keterangan') }}' name='keterangan' id="keterangan" placeholder="Masukan Keterangan">
             </div>
         </div>
         <div class="mb-3 row">

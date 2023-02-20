@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class supplierController extends Controller
+class SupplierController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,6 @@ class supplierController extends Controller
     public function index(Request $request)
     {
         $katakunci = $request->katakunci;
-        $db = DB::table('supplier')->get();
         $jumlahbaris = 5;
         if(strlen($katakunci)){
             $data = supplier::where('nama_supplier','like',"%$katakunci%")
@@ -28,7 +27,7 @@ class supplierController extends Controller
         }else{
             $data = supplier::orderBy('id_supplier', 'desc')->paginate($jumlahbaris);
         }
-        return view('supplier.index', compact('db'))->with('supplier', $data);
+        return view('supplier.index')->with('supplier', $data);
     }
 
     /**

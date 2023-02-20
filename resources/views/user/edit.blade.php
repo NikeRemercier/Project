@@ -18,7 +18,7 @@
             <div class="col-sm-10">
                 <select class="form-select" aria-label="Default select example" name="id_level" id="id_level">
                     <option disabled selected>Pilih Level</option>
-                        @foreach($edit as $item)
+                        @foreach($level_user as $item)
                             <option value="{{ $item->id_level }}">{{ $item->nama_level }}</option>
                         @endforeach
                 </select>

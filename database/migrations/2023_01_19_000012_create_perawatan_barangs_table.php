@@ -13,11 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pemeliharaan_barang', function (Blueprint $table) {
-            $table->char('id_pemeliharaan', 8)->primary();
+        Schema::create('perawatan_barang', function (Blueprint $table) {
+            $table->char('id_perawat', 8)->primary();
             $table->char('kode_barang', 8);
             $table->char('id_user', 8);
-            $table->string('nama_pelaksana', 25);
             $table->date('tanggal_pemeliharaan');
             $table->string('kegiatan_pemeliharaan', 25);
             $table->text('keterangan');

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class sumber_danaController extends Controller
+class SumberDanaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,6 @@ class sumber_danaController extends Controller
     public function index(Request $request)
     {
         $katakunci = $request->katakunci;
-        $db = DB::table('sumber_dana')->get();
         $jumlahbaris = 5;
         if(strlen($katakunci)){
             $data = sumber_dana::where('nama_sumber','like',"%$katakunci%")
@@ -27,7 +26,7 @@ class sumber_danaController extends Controller
         }else{
             $data = sumber_dana::orderBy('id_sumber', 'desc')->paginate($jumlahbaris);
         }
-        return view('sumber_dana.index', compact('db'))->with('sumber_dana', $data);
+        return view('sumber_dana.index')->with('sumber_dana', $data);
     }
 
     /**

@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('level_user', function (Blueprint $table) {
-            $table->char('id_level', 4)->primary();
+            $table->char('id_level')->primary()->autoIncrement();
             $table->string('nama_level', 25)->unique();
         });
     }

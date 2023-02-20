@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\user;
+use App\Models\User;
+use App\Models\view_join_user;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class userController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,20 +18,16 @@ class userController extends Controller
     public function index(Request $request)
     {
         $katakunci = $request->katakunci;
-        $db = DB::table('user')
-        ->join('level_user', 'user.id_level', '=', 'level_user.id_level')
-        ->select('level_user.*', 'user.*')
-        ->get();
         $jumlahbaris = 5;
         if(strlen($katakunci)){
-            $data = user::where('nama_user','like',"%$katakunci%")
-            ->orWhere('id_level','like',"%$katakunci%")
+            $data = view_join_user::where('nama_user','like',"%$katakunci%")
+            ->orWhere('nama_level','like',"%$katakunci%")
             ->orWhere('username','like',"%$katakunci%")
             ->paginate($jumlahbaris);
         }else{
-            $data = user::orderBy('id_user', 'desc')->paginate($jumlahbaris);
+            $data = view_join_user::orderBy('id_user', 'desc')->paginate($jumlahbaris);
         }
-        return view('user.index', compact('db'))->with('user', $data);
+        return view('user.index')->with('user', $data);
     }
 
     /**
@@ -40,8 +37,8 @@ class userController extends Controller
      */
     public function create()
     {
-        $create = DB::table('level_user')->get();
-        return view('user.create', compact('create'));
+        $level_user = DB::table('level_user')->get();
+        return view('user.create', compact('level_user'));
     }
 
     /**
@@ -53,7 +50,6 @@ class userController extends Controller
     public function store(Request $request)
     {        
         Session::flash('nama_user', $request->nama_user);
-        Session::flash('id_level', $request->id_level);
         Session::flash('username', $request->username);
         Session::flash('password', $request->password);
         
@@ -101,9 +97,9 @@ class userController extends Controller
      */
     public function edit($id)
     {
-        $edit = DB::table('level_user')->get();
+        $level_user = DB::table('level_user')->get();
         $data = user::where('id_user', $id)->first();
-        return view('user.edit', compact('edit'))->with('edit_user', $data);
+        return view('user.edit', compact('level_user'))->with('edit_user', $data);
     }
 
     /**

@@ -29,7 +29,7 @@
 <tbody>
 
     <?php $i = 1?>
-    @forelse($db as $item)
+    @forelse($lokasi as $item)
     <tr style="text-align: center">
         <td>{{ $i++ }}</td>
         <td>{{ $item->nama_lokasi }}</td>
