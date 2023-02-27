@@ -8,6 +8,17 @@
     <div class="my-3 p-3 bg-body rounded shadow-sm">
         <a href="{{ url('peminjaman_barang') }}" class="btn btn-secondary bi bi-back"> Kembali</a>
         <div class="mb-3 row">
+            <label for="id_lokasi" class="col-sm-2 col-form-label">Lokasi Barang</label>
+            <div class="col-sm-10">
+                <select class="form-select" aria-label="Default select example" name="id_lokasi" id="id_lokasi">
+                    <option disabled selected>Pilih Lokasi Barang</option>
+                        @foreach($lokasi as $item)
+                            <option value="{{ $item->id_lokasi }}" {{  old('id_lokasi', $item->id_lokasi) == $item->id_lokasi ? 'selected' : null }}>{{ $item->nama_lokasi }}</option>
+                        @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="mb-3 row">
             <label for="kode_barang" class="col-sm-2 col-form-label">Kode Barang</label>
             <div class="col-sm-10">
                 <select class="form-select" aria-label="Default select example" name="kode_barang" id="kode_barang">
@@ -47,4 +58,34 @@
         </div>
     </div>
 </form>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function() {
+    $('#id_lokasi').on('change', function() {
+       var lokasiID = $(this).val();
+       if(lokasiID) {
+           $.ajax({
+               url: '/getLokasi/'+lokasiID,
+               type: "GET",
+               data : {"_token":"{{ csrf_token() }}"},
+               dataType: "json",
+               success:function(data)
+               {
+                 if(data){
+                    $('#kode_barang').empty();
+                    $('#kode_barang').append('<option hidden>Pilih Kode Barang</option>'); 
+                    $.each(data, function(key, lokasi_barang){
+                        $('#kode_barang').append('<option value="'+ lokasi_barang.kode_barang +'">' + lokasi_barang.kode_barang + '</option>');
+                    });
+                }else{
+                    $('#kode_barang').empty();
+                }
+             }
+           });
+       }else{
+         $('#kode_barang').empty();
+       }
+    });
+    });
+</script>
 @endsection

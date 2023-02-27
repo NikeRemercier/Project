@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -13,13 +14,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('barang', function (Blueprint $table) {
-            $table->char('id_barang', 8)->primary();
-            $table->string('nama_barang', 25);
-            $table->string('merk', 25);
-            $table->string('spesifikasi');
-            $table->integer('total_barang');
-        });
+        DB::unprepared(
+            "CREATE OR REPLACE VIEW jumlah_sumber_dana AS (
+                SELECT COUNT(id_sumber) AS jml_sumber_dana FROM sumber_dana
+            )"
+        );
     }
 
     /**
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('barang');
+        Schema::dropIfExists('view_agregat_sumber_dana');
     }
 };

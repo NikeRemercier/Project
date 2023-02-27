@@ -16,6 +16,7 @@
     <a href='{{ url('detail_barang/create') }}' class="btn btn-primary bi bi-plus-circle"> Tambah Data</a>
 </div>
           
+<div class="table-responsive">
 <table class="table table-hover">
 <thead>
     <tr style="text-align: center">
@@ -61,7 +62,8 @@
     @endforelse
 
 </tbody>
-</table>        
+</table>     
+</div>   
 
 {{ $detail_barang->links() }}
 </div>

@@ -37,8 +37,8 @@ class PeminjamanBarangController extends Controller
     public function create()
     {
         $user = DB::table('user')->get();
-        $detail_barang = DB::table('detail_barang')->get();
-        return view('peminjaman_barang.create', compact('user','detail_barang'));
+        $lokasi = DB::table('lokasi')->get();
+        return view('peminjaman_barang.create', compact('user','lokasi'));
     }
 
     /**
@@ -50,16 +50,18 @@ class PeminjamanBarangController extends Controller
     public function store(Request $request)
     {
         Session::flash('tanggal_peminjaman', $request->tanggal_peminjaman);
-        Session::flash('tahun_kembali', $request->tanggal_kembali);
+        Session::flash('tanggal_kembali', $request->tanggal_kembali);
         
         $request->validate([           
             'kode_barang' => 'required',
-            'id_user' => 'required',            
+            'id_user' => 'required',     
+            'id_lokasi' => 'required',       
             'tanggal_peminjaman' => 'required',
             'tanggal_kembali' => 'required',
         ],[
             'kode_barang.required' => 'Kode Barang Wajib di Isi',
             'id_user.required' => 'Nama User Wajib di Isi',
+            'id_lokasi.required' => 'Nama Lokasi Wajib di Isi',
             'tanggal_peminjaman.required' => 'Tanggal Peminjaman Wajib di Isi',
             'tanggal_kembali.required' => 'Tanggal Kembali Wajib di Isi',            
         ]);
@@ -70,6 +72,7 @@ class PeminjamanBarangController extends Controller
             'id_peminjam' => $kode_baru,
             'kode_barang' => $request->input('kode_barang'),
             'id_user' => $request->input('id_user'),
+            'id_lokasi' => $request->input('id_lokasi'),
             'tanggal_peminjaman' => $request->input('tanggal_peminjaman'),
             'tanggal_kembali' => $request->input('tanggal_kembali'),
         ]);
@@ -97,8 +100,9 @@ class PeminjamanBarangController extends Controller
     {
         $detail_barang = DB::table('detail_barang')->get();
         $user = DB::table('user')->get();
+        $lokasi = DB::table('lokasi')->get();
         $data = peminjaman_barang::where('id_peminjam', $id)->first();
-        return view('peminjaman_barang.edit', compact('detail_barang', 'user'))->with('edit_peminjaman_barang', $data);
+        return view('peminjaman_barang.edit', compact('detail_barang', 'user','lokasi'))->with('edit_peminjaman_barang', $data);
     }
 
     /**
@@ -113,17 +117,20 @@ class PeminjamanBarangController extends Controller
         $request->validate([
             'kode_barang' => 'required',
             'id_user' => 'required',
+            'id_lokasi' => 'required',       
             'tanggal_peminjaman' => 'required',
             'tanggal_kembali' => 'required',
         ],[
             'kode_barang.required' => 'Nama User Wajib di Isi',
             'id_user.required' => 'Nama Level Wajib di Isi',
+            'id_lokasi.required' => 'Nama Lokasi Wajib di Isi',
             'tanggal_peminjaman.required' => 'Tanggal Peminjaman Wajib di Isi',
             'tanggal_kembali.required' => 'Tanggal Kembali Wajib di Isi',        
         ]);
         $data = [
             'kode_barang'=>$request->kode_barang,
             'id_user'=>$request->id_user,
+            'id_lokasi' =>$request->id_lokasi,       
             'tanggal_peminjaman'=>$request->tanggal_peminjaman,
             'tanggal_kembali'=>$request->tanggal_kembali,
         ];

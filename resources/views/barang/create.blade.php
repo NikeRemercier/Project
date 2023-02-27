@@ -18,6 +18,12 @@
             </div>
         </div>
         <div class="mb-3 row">
+            <label for="spesifikasi" class="col-sm-2 col-form-label">Spesifikasi</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" value='{{ Session::get('spesifikasi') }}' name='spesifikasi' id="spesifikasi" placeholder="Masukan Spesifikasi Barang">
+            </div>
+        </div>
+        <div class="mb-3 row">
             <label for="total_barang" class="col-sm-2 col-form-label">Total Barang</label>
             <div class="col-sm-10">
                 <input type="number" class="form-control" value='{{ Session::get('total_barang') }}' name='total barang' id="total barang" placeholder="Masukan Total Barang">

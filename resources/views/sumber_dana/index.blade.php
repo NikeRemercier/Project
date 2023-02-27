@@ -15,7 +15,8 @@
 <div class="pb-3">
     <a href='{{ url('sumber_dana/create') }}' class="btn btn-primary bi bi-plus-circle"> Tambah Data</a>
 </div>
-          
+        
+<div class="table-responsive">
 <table class="table table-hover">
 <thead>
     <tr style="text-align: center">
@@ -48,6 +49,7 @@
   
 </tbody>
 </table>        
+</div>
 
 {{ $sumber_dana->links() }}
 </div>

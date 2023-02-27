@@ -17,8 +17,9 @@ return new class extends Migration
             $table->char('id_perawat', 8)->primary();
             $table->char('kode_barang', 8);
             $table->char('id_user', 8);
-            $table->date('tanggal_pemeliharaan');
-            $table->string('kegiatan_pemeliharaan', 25);
+            $table->char('id_lokasi', 4);
+            $table->date('tanggal_perawatan');
+            $table->string('kegiatan_perawatan', 25);
             $table->text('keterangan');
 
             $table->foreign('kode_barang')
@@ -30,6 +31,12 @@ return new class extends Migration
             $table->foreign('id_user')
             ->references('id_user')
             ->on('user')
+            ->cascadeOnUpdate()
+            ->cascadeOnDelete();
+
+            $table->foreign('id_lokasi')
+            ->references('id_lokasi')
+            ->on('lokasi')
             ->cascadeOnUpdate()
             ->cascadeOnDelete();
         });

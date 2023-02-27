@@ -21,12 +21,15 @@ class BarangController extends Controller
         if(strlen($katakunci)){
             $data = barang::where('nama_barang','like',"%$katakunci%")
             ->orWhere('merk','like',"%$katakunci%")
+            ->orWhere('spesifikasi','like',"%$katakunci%")
             ->paginate($jumlahbaris);
-
         }else{
             $data = barang::orderBy('id_barang', 'desc')->paginate($jumlahbaris);
         }
-        return view('barang.index')->with('barang', $data);
+        $lokasi = collect(DB::select("SELECT * FROM jumlah_lokasi"))->firstOrFail()->jml_lokasi;
+        $sumber_dana = collect(DB::select("SELECT * FROM jumlah_sumber_dana"))->firstOrFail()->jml_sumber_dana;
+        $supplier = collect(DB::select("SELECT * FROM jumlah_supplier"))->firstOrFail()->jml_supplier;
+        return view('barang.index', compact('lokasi', 'sumber_dana', 'supplier'))->with('barang', $data);
     }
 
     /**
@@ -49,16 +52,19 @@ class BarangController extends Controller
     {
         Session::flash('nama_barang', $request->nama_barang);
         Session::flash('merk', $request->merk);
+        Session::flash('spesifikasi', $request->spesifikasi);
         Session::flash('total_barang', $request->total_barang);
         
         $request->validate([
             'nama_barang' => 'required',
             'merk' => 'required',
+            'spesifikasi' => 'required',
             'total_barang' => 'required',
         ],[
-            'nama_barang.required' => 'Nama Wajib di Isi',
-            'merk.required' => 'Merk Wajib di Isi',
-            'total_barang.required' => 'Jumlah Wajib di Isi', 
+            'nama_barang.required' => 'Nama Barang Wajib di Isi',
+            'merk.required' => 'Merk Barang Wajib di Isi',
+            'spesifikasi.required' => 'Spesifikasi Barang Wajib di Isi',
+            'total_barang.required' => 'Jumlah Barang Wajib di Isi', 
         ]);
             $Array = DB::select('SELECT new_id_barang() AS id_barang');
             $kode_baru = $Array[0]->id_barang;
@@ -66,6 +72,7 @@ class BarangController extends Controller
                 'id_barang' => $kode_baru,
                 'nama_barang' => $request->input('nama_barang'),
                 'merk' => $request->input('merk'),
+                'spesifikasi' => $request->input('spesifikasi'),
                 'total_barang' => $request->input('total_barang')
             ]);
             return redirect()->to('barang')->with('success', 'Berhasil menambahkan data');
@@ -106,15 +113,18 @@ class BarangController extends Controller
         $request->validate([
             'nama_barang' => 'required',
             'merk' => 'required',
+            'spesifikasi' => 'required',
             'total_barang' => 'required'
         ],[
             'nama_barang.required' => 'Nama Wajib di Isi',
             'merk.required' => 'Merk Wajib di Isi',
+            'spesifikasi.required' => 'Spesifikasi Barang Wajib di Isi',
             'total_barang.required' => 'Total Wajib di Isi', 
         ]);
         $data = [
             'nama_barang'=>$request->nama_barang,
             'merk'=>$request->merk,
+            'spesifikasi'=>$request->spesifikasi,
             'total_barang'=>$request->total_barang,
         ];
         barang::where('id_barang', $id)->update($data);
