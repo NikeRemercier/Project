@@ -13,7 +13,7 @@
                 <select class="form-select" aria-label="Default select example" name="id_barang" id="id_barang">
                     <option disabled selected>Pilih Barang</option>
                         @foreach($barang as $item)
-                            <option value="{{ $item->id_barang }}" {{  old('id_barang', $item->id_barang) == $item->id_barang ? 'selected' : null }}>{{ $item->nama_barang }}</option>
+                            <option value="{{ $item->id_barang }}">{{ $item->nama_barang }}</option>
                         @endforeach
                 </select>
             </div>
@@ -24,7 +24,7 @@
                 <select class="form-select" aria-label="Default select example" name="id_lokasi" id="id_lokasi">
                     <option disabled selected>Pilih Lokasi</option>
                         @foreach($lokasi as $item)
-                            <option value="{{ $item->id_lokasi }}" {{  old('id_lokasi', $item->id_lokasi) == $item->id_lokasi ? 'selected' : null }}>{{ $item->nama_lokasi }}</option>
+                            <option value="{{ $item->id_lokasi }}">{{ $item->nama_lokasi }}</option>
                         @endforeach
                 </select>
             </div>
@@ -35,7 +35,7 @@
                 <select class="form-select" aria-label="Default select example" name="id_sumber" id="id_sumber">
                     <option disabled selected>Pilih Sumber</option>
                         @foreach($sumber_dana as $item)
-                            <option value="{{ $item->id_sumber }}" {{  old('id_sumber', $item->id_sumber) == $item->id_sumber ? 'selected' : null }}>{{ $item->nama_sumber }}</option>  
+                            <option value="{{ $item->id_sumber }}">{{ $item->nama_sumber }}</option>  
                         @endforeach
                 </select>
             </div>

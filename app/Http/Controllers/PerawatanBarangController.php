@@ -37,8 +37,9 @@ class PerawatanBarangController extends Controller
     public function create()
     {
         $user = DB::table('user')->get();
+        $lokasi = DB::table('lokasi')->get();
         $detail_barang = DB::table('detail_barang')->get();
-        return view('perawatan_barang.create', compact('user','detail_barang'));
+        return view('perawatan_barang.create', compact('user','lokasi','detail_barang'));
     }
 
     /**
@@ -55,13 +56,15 @@ class PerawatanBarangController extends Controller
         
         $request->validate([           
             'kode_barang' => 'required',
-            'id_user' => 'required',            
+            'id_user' => 'required',    
+            'id_lokasi' => 'required',               
             'tanggal_perawatan' => 'required',
             'kegiatan_perawatan' => 'required',
             'keterangan' => 'required',
         ],[
             'kode_barang.required' => 'Kode Barang Wajib di Isi',
             'id_user.required' => 'Nama User Wajib di Isi',
+            'id_lokasi.required' => 'Nama Lokasi Wajib di Isi',
             'kegiatan_perawatan' => 'Kegiatan Perawatan Wajib di Isi',
             'tanggal_perawatan.required' => 'Tanggal Perawatan Wajib di Isi',
             'keterangan.required' => 'Keterangan Wajib di Isi',            
@@ -73,6 +76,7 @@ class PerawatanBarangController extends Controller
             'id_perawat' => $kode_baru,
             'kode_barang' => $request->input('kode_barang'),
             'id_user' => $request->input('id_user'),
+            'id_lokasi' => $request->input('id_lokasi'),
             'tanggal_perawatan' => $request->input('tanggal_perawatan'),
             'kegiatan_perawatan' => $request->input('kegiatan_perawatan'),
             'keterangan' => $request->input('keterangan'),
@@ -99,7 +103,11 @@ class PerawatanBarangController extends Controller
      */
     public function edit($id)
     {
-        //
+        $detail_barang = DB::table('detail_barang')->get();
+        $user = DB::table('user')->get();
+        $lokasi = DB::table('lokasi')->get();
+        $data = perawatan_barang::where('id_perawat', $id)->first();
+        return view('perawatan_barang.edit', compact('detail_barang', 'user','lokasi'))->with('edit_perawatan_barang', $data);
     }
 
     /**
@@ -111,7 +119,31 @@ class PerawatanBarangController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([           
+            'kode_barang' => 'required',
+            'id_user' => 'required',    
+            'id_lokasi' => 'required',               
+            'tanggal_perawatan' => 'required',
+            'kegiatan_perawatan' => 'required',
+            'keterangan' => 'required',
+        ],[
+            'kode_barang.required' => 'Kode Barang Wajib di Isi',
+            'id_user.required' => 'Nama User Wajib di Isi',
+            'id_lokasi.required' => 'Nama Lokasi Wajib di Isi',
+            'kegiatan_perawatan' => 'Kegiatan Perawatan Wajib di Isi',
+            'tanggal_perawatan.required' => 'Tanggal Perawatan Wajib di Isi',
+            'keterangan.required' => 'Keterangan Wajib di Isi',            
+        ]);
+        $data = [
+            'kode_barang'=>$request->kode_barang,
+            'id_user'=>$request->id_user,
+            'id_lokasi' =>$request->id_lokasi,       
+            'tanggal_perawatan'=>$request->tanggal_perawatan,
+            'kegiatan_perawatan'=>$request->kegiatan_perawatan,
+            'keterangan'=>$request->keterangan,
+        ];
+        perawatan_barang::where('id_perawat', $id)->update($data);
+        return redirect()->to('perawatan_barang')->with('success', 'Berhasil mengubah data');
     }
 
     /**
@@ -122,6 +154,7 @@ class PerawatanBarangController extends Controller
      */
     public function destroy($id)
     {
-        //
+        perawatan_barang::where('id_perawat', $id)->delete();
+        return redirect()->to('perawatan_barang')->with('success', 'Berhasil menghapus data');
     }
 }

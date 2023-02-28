@@ -1,8 +1,10 @@
 @extends('layout.main')
-
+<!-- START FORM -->
 @section('konten')
-<form action='{{ url('perawatan_barang') }}' method='POST'>
+
+<form action='{{ url('perawatan_barang/'.$edit_perawatan_barang->id_perawat) }}' method='post'>
 @csrf
+@method('PUT')
     <div class="my-3 p-3 bg-body rounded shadow-sm">
         <a href="{{ url('perawatan_barang') }}" class="btn btn-secondary bi bi-back"> Kembali</a>
         <div class="mb-3 row">
@@ -11,7 +13,7 @@
                 <select class="form-select" aria-label="Default select example" name="id_lokasi" id="id_lokasi">
                     <option disabled selected>Pilih Lokasi Barang</option>
                         @foreach($lokasi as $item)
-                            <option value="{{ $item->id_lokasi }}" {{old('id_lokasi') == $item->id_lokasi ? 'selected' : null}}>{{ $item->nama_lokasi }}</option>
+                            <option value="{{ $item->id_lokasi }}">{{ $item->nama_lokasi }}</option>
                         @endforeach
                 </select>
             </div>
@@ -30,7 +32,7 @@
                 <select class="form-select" aria-label="Default select example" name="id_user" id="id_user">
                     <option disabled selected>Pilih User</option>
                         @foreach($user as $item)
-                            <option value="{{ $item->id_user }}" {{old('id_user') == $item->id_user ? 'selected' : null}}>{{ $item->nama_user }}</option>
+                            <option value="{{ $item->id_user }}">{{ $item->nama_user }}</option>
                         @endforeach
                 </select>
             </div>
@@ -38,19 +40,19 @@
         <div class="mb-3 row">
             <label for="tanggal_perawatan" class="col-sm-2 col-form-label">Tanggal Perawatan</label>
             <div class="col-sm-10">
-                <input type="date" class="form-control" value='{{ Session::get('tanggal_perawatan') }}' name='tanggal_perawatan' id="tanggal_perawatan">
+                <input type="date" class="form-control" value='{{ $edit_perawatan_barang->tanggal_perawatan }}' name='tanggal_perawatan' id="tanggal_perawatan">
             </div>
         </div>
         <div class="mb-3 row">
             <label for="kegiatan_perawatan" class="col-sm-2 col-form-label">Kegiatan Perawatan</label>
             <div class="col-sm-10">
-                <textarea class="form-control" value='{{ Session::get('kegiatan_perawatan') }}' name='kegiatan_perawatan' id="kegiatan_perawatan" rows="2"></textarea>
+                <input type="text" class="form-control" value='{{ $edit_perawatan_barang->kegiatan_perawatan }}' name='kegiatan_perawatan' id="kegiatan_perawatan">
             </div>
         </div>
         <div class="mb-3 row">
-            <label for="keterangan" class="col-sm-2 col-form-label">Keterangan</label>
+            <label for="keterangan" class="col-sm-2 col-form-label">keterangan</label>
             <div class="col-sm-10">
-                <textarea class="form-control" value='{{ Session::get('keterangan') }}' name='keterangan' id="keterangan" rows="2"></textarea>
+                <input type="text" class="form-control" value='{{ $edit_perawatan_barang->keterangan }}' name='keterangan' id="keterangan">
             </div>
         </div>
         <div class="mb-3 row">

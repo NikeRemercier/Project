@@ -29,6 +29,17 @@
           <label for="password" class="form-label">Password</label>
           <input type="password" class="form-control" id="password" name="password">
         </div>
+        <div class="mb-3">
+          <label for="id_level" class="col-sm-2 col-form-label">Nama Level</label>
+          <div class="col-sm-10">
+              <select class="form-select" aria-label="Default select example" name="id_level" id="id_level">
+                  <option disabled selected>Pilih Level</option>
+                      @foreach($level_user as $item)
+                          <option value="{{ $item->id_level }}" {{old('id_level') == $item->id_level ? 'selected' : null}}>{{ $item->nama_level }}</option>
+                      @endforeach
+              </select>
+          </div>
+      </div>
           <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>

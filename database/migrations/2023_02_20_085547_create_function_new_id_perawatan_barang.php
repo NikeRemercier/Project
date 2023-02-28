@@ -24,7 +24,7 @@ return new class extends Migration
             DECLARE ambil_angka INT;
             DECLARE angka_baru CHAR(8);
             DECLARE jumlah INT;
-            SELECT COUNT(id_peminjam) INTO jumlah FROM peminjaman_barang;
+            SELECT COUNT(id_perawat) INTO jumlah FROM perawatan_barang;
             IF(jumlah = 0) THEN
                 SET kode_baru = CONCAT('PRB',0,0,0,0,1);
             ELSE

@@ -21,6 +21,7 @@
 <thead>
     <tr style="text-align: center">
         <th class="col-md-1">No</th>
+        <th class="col-md-1">Lokasi Barang</th>
         <th class="col-md-1">Kode Barang</th>
         <th class="col-md-1">Nama Perawat</th>
         <th class="col-md-1">Tanggal Perawatan</th>
@@ -35,13 +36,14 @@
     @forelse($perawatan_barang as $item)
     <tr style="text-align: center">
         <td>{{ $i++ }}</td>
+        <td>{{ $item->nama_lokasi }}</td>
         <td><a href="{{ url('detail_barang') }}">{{ $item->kode_barang }}</a></td>
         <td>{{ $item->nama_user }}</td>
         <td>{{ $item->tanggal_perawatan }}</td>
         <td>{{ $item->kegiatan_perawatan }}</td>
         <td>{{ $item->keterangan }}</td>
         <td>
-            <a href='{{ url('perawatan_barang/'.$item->id_peminjam.'/edit') }}' class="btn btn-warning btn-sm bi bi-pencil-square"></a>
+            <a href='{{ url('perawatan_barang/'.$item->id_perawat.'/edit') }}' class="btn btn-warning btn-sm bi bi-pencil-square"></a>
             <form onsubmit="return confirm('Yakin akan menghapus data?')" action="{{ url('perawatan_barang/'.$item->id_perawat) }}" class="d-inline" method="post">
                 @csrf
                 @method('DELETE')
